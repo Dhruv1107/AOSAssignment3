@@ -21,6 +21,7 @@ typedef struct team
 	int matchesDrawn;
 	int matchesLost;
 	int goalsScored;
+	int goalsScoredinCurrentMatch;
 	int points;
 } team_info;
 team_info *teamsArray;
