@@ -24,7 +24,7 @@ typedef struct team
 	int goalsScoredinCurrentMatch;
 	int points;
 } team_info;
-team_info *teamsArray;
+team_info *teamsArray,*teamsOutput;
 int shmid;
 
 extern void simulateLeague(int noOfTeams, int i, int j, int schedule[][j]);

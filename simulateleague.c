@@ -112,11 +112,42 @@ void createStadiumManagerProcess(int noOfTeams,int i, int j, int schedule[][j]){
 	while(wait(NULL)!=-1);
 }
 
+void printLeagueTable(int noOfTeams){
+	printf("Team\tW\tD\tL\tGS\tPoints\n");
+	printf("--------------------------------------------------------------\n");
+	team_info temp;
+	for(int i = 1; i<=noOfTeams; i++){
+		for(int j = i+1; j<= noOfTeams;j++){
+			if(teamsArray[i].points < teamsArray[j].points){
+				temp = teamsArray[i];
+				teamsArray[i] = teamsArray[j];
+				teamsArray[j] = temp;
+			}
+				
+		}
+	}
+	for(int i = 1; i<=noOfTeams; i++){
+		for(int j = i+1; j<= noOfTeams;j++){
+			if(teamsArray[i].points == teamsArray[j].points && teamsArray[i].goalsScored < teamsArray[j].goalsScored){
+				temp = teamsArray[i];
+				teamsArray[i] = teamsArray[j];
+				teamsArray[j] = temp;
+			}
+				
+		}
+	}
+	for(int i = 1;i<=noOfTeams; i++){
+		printf("%d\t%d\t%d\t%d\t%d\t%d\n",teamsArray[i].teamId,teamsArray[i].matchesWon,teamsArray[i].matchesDrawn,teamsArray[i].matchesLost,teamsArray[i].goalsScored,teamsArray[i].points);
+	}
+	
+}
+
 void simulateLeague(int noOfTeams,int i, int j, int schedule[][j]){
 	srand(time(NULL));
 	initializeSharedMemory(noOfTeams);
 	//printSchedule(i,schedule);
 	checkScheduleValidity(i,schedule);
 	createStadiumManagerProcess(noOfTeams,i,j,schedule);
+	printLeagueTable(noOfTeams);
 
 }
