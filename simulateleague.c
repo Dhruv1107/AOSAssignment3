@@ -136,6 +136,16 @@ void printLeagueTable(int noOfTeams){
 				
 		}
 	}
+	for(int i = 1; i<=noOfTeams; i++){
+		for(int j = i+1; j<= noOfTeams;j++){
+			if(teamsArray[i].points == teamsArray[j].points && teamsArray[i].goalsScored == teamsArray[j].goalsScored && teamsArray[i].teamId > teamsArray[j].teamId ){
+				temp = teamsArray[i];
+				teamsArray[i] = teamsArray[j];
+				teamsArray[j] = temp;
+			}
+				
+		}
+	}
 	for(int i = 1;i<=noOfTeams; i++){
 		printf("%d\t%d\t%d\t%d\t%d\t%d\n",teamsArray[i].teamId,teamsArray[i].matchesWon,teamsArray[i].matchesDrawn,teamsArray[i].matchesLost,teamsArray[i].goalsScored,teamsArray[i].points);
 	}
