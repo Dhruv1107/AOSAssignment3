@@ -25,7 +25,8 @@ typedef struct team
 	int points;
 } team_info;
 team_info *teamsArray,*teamsOutput;
-int shmid;
+int *cs_key;
+int shmid,csKeyShmId;
 
 extern void simulateLeague(int noOfTeams, int i, int j, int schedule[][j]);
 
