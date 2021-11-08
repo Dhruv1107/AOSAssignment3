@@ -109,10 +109,8 @@ void createStadiumManagerProcess(int noOfTeams,int i, int j, int schedule[][j]){
 			START:if(*cs_key == 1) {
 				
 				*cs_key = 0;
-				//printf("cs_key value BEFORE %d for pid:%u\n",*cs_key,getpid());
 				simulateMatches(row,i,schedule);
 				*cs_key = 1;
-				//printf("cs_key value AFTER %d for pid:%u\n",*cs_key,getpid());
 				exit(0);
 			
 			}
