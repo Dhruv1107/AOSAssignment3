@@ -53,32 +53,30 @@ void simulateMatches(int stadiumManager, int i, int schedule[i][2]){
 	for(int row = 0; row<i; row++){
 		if(schedule[row][0] == stadiumManager){
 				printf("Starting Match:Team %d vs Team %d\n",schedule[row][0],schedule[row][1]);
-				/*int max = MAX(schedule[row][0],schedule[row][1]);
-				int min = MIN(schedule[row][0],schedule[row][1]);
-				int random = rand() % 2;
-				int winner = random*(max - min) + min;
-				min = 0;	//For draw
-				random = rand() % 2;
-				winner = random*(winner - min) + min;*/
-				int numbers[3] = {0,schedule[row][0], schedule[row][1]};
-				int index = rand() % 3;
+				int gs1,gs2;
+				srand(time(NULL));
+				gs1 = rand() % 6;
+				gs2 = rand() % 6;
 				
-				//printf("Winner:%d\n",winner);
-				if(index != 0){
-					int winner = numbers[index];
-					int loser;
-					if(winner == schedule[row][0]){
+				//printf("GS1:%d\tGS2:%d\n",gs1,gs2);
+				if(gs1 != gs2){
+					int winner, loser, winnerGoals, loserGoals;
+					if(gs1 > gs2){
+						winner = schedule[row][0];
 						loser = schedule[row][1];
+						winnerGoals = gs1;
+						loserGoals = gs2;
 					}
 					else{
+						winner = schedule[row][1];
 						loser = schedule[row][0];
+						winnerGoals = gs2;
+						loserGoals = gs1;
 					}
 					teamsArray[winner].matchesWon++;
-					int winnerGoals = rand() % 6;
-					teamsArray[winner].goalsScoredinCurrentMatch = winnerGoals % 6;
+					teamsArray[winner].goalsScoredinCurrentMatch = winnerGoals;
 					teamsArray[winner].goalsScored += winnerGoals;
 					teamsArray[winner].points += 3;
-					int loserGoals = (rand() % teamsArray[winner].goalsScored);
 					teamsArray[loser].goalsScoredinCurrentMatch = loserGoals;
 					teamsArray[loser].goalsScored += loserGoals;
 					teamsArray[loser].matchesLost++;
@@ -86,13 +84,12 @@ void simulateMatches(int stadiumManager, int i, int schedule[i][2]){
 				else { //Draw
 					teamsArray[schedule[row][0]].matchesDrawn++;
 					teamsArray[schedule[row][1]].matchesDrawn++;
-					int gs = rand() % 6;
-					teamsArray[schedule[row][0]].goalsScored += gs;
-					teamsArray[schedule[row][1]].goalsScored += gs;
+					teamsArray[schedule[row][0]].goalsScored += gs1;
+					teamsArray[schedule[row][1]].goalsScored += gs1;
 					teamsArray[schedule[row][0]].points++;
 					teamsArray[schedule[row][1]].points++;
-					teamsArray[schedule[row][0]].goalsScoredinCurrentMatch = gs;
-					teamsArray[schedule[row][1]].goalsScoredinCurrentMatch = gs;
+					teamsArray[schedule[row][0]].goalsScoredinCurrentMatch = gs1;
+					teamsArray[schedule[row][1]].goalsScoredinCurrentMatch = gs1;
 				}
 				sleep(1);
 				printf("Match Ended:Team %d vs Team %d\t Result:%d-%d\n",schedule[row][0],schedule[row][1],teamsArray[schedule[row][0]].goalsScoredinCurrentMatch, teamsArray[schedule[row][1]].goalsScoredinCurrentMatch);
@@ -108,6 +105,7 @@ void createStadiumManagerProcess(int noOfTeams,int i, int j, int schedule[][j]){
 			abort();
 		} 
 		else if (pids[row] == 0) {
+			
 			START:if(*cs_key == 1) {
 				
 				*cs_key = 0;
@@ -169,7 +167,7 @@ void printLeagueTable(int noOfTeams){
 }
 
 void simulateLeague(int noOfTeams,int i, int j, int schedule[][j]){
-	srand(time(NULL));
+	
 	initializeSharedMemory(noOfTeams);
 	//printSchedule(i,schedule);
 	checkScheduleValidity(i,schedule);
