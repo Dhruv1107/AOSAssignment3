@@ -36,7 +36,7 @@ int main(int argc, char **argv){
 		printf("No of teams should be less than or equal to 10\n");
 		exit(2);
 	}
-	printf("No of Teams:%d\n",noOfTeams);
+	//printf("No of Teams:%d\n",noOfTeams);
 	
 	int i = 0;
 	int j = 0;
