@@ -1,16 +1,15 @@
-#include "premierleague.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include<string.h>  
+#include "premierleague.h" 
 
-/*Expected Command line arguments
- * Input file that is to be read
+/*
+  Expected Command line arguments:
+  1) Input file that is to be read
 */
 int main(int argc, char **argv){
 	char str[20],temp[20];
 	char teams[20];
-	int schedule[90][2];
+	int schedule[91][2];
 	int noOfTeams;
+	// token1 to store homeTeam and token2 to store awayTeam
 	char *token1, *token2;
 	
 	if(argc != 2){
@@ -21,25 +20,26 @@ int main(int argc, char **argv){
 	FILE *f;
 	f = fopen(argv[1], "r");
 	
-	// if there was an error
+	// if there is an error, exit
 	if(f == NULL){
-		perror("Error opening file"); // print error
+		perror("Error opening file");
 		return(-1); 
 	}
-	// if there was no error
+	// if there is no error, read the first line which is no of teams
 	else{ 
 		fgets(teams, 20, f); // read from file
 	}
 	noOfTeams = atoi(teams);
 	
+	//If no of teams is greater than 10, exit by printing an error
 	if(noOfTeams > 10){
 		printf("No of teams should be less than or equal to 10\n");
 		exit(2);
 	}
-	//printf("No of Teams:%d\n",noOfTeams);
 	
 	int i = 0;
 	int j = 0;
+	//Store the schedule of all matches in 2d Array schedule
 	while (fgets(str,sizeof str,f) != NULL){
 		token1 = strtok(str," ");
 		token2 = strtok(NULL, " ");
@@ -50,8 +50,9 @@ int main(int argc, char **argv){
 		j=0;
 		
 	}
+	//Simulate the League
 	simulateLeague(noOfTeams,i,j, schedule);
-	fclose(f); // close file
+	fclose(f);
 	return 0;
 }
 
