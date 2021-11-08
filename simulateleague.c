@@ -130,7 +130,7 @@ void createStadiumManagerProcess(int noOfTeams,int i, int j, int schedule[i][2])
 		}
 		printf("\n");	
 	}*/
-	for(int row = 0; row<i; row++){
+	for(int row = 0; row<=i; row++){
 		int hT = schedule[row][0];
 		int aT = schedule[row][1];
 		int pid = getManagerPid(hT,index,managerArray);
@@ -145,7 +145,7 @@ void createStadiumManagerProcess(int noOfTeams,int i, int j, int schedule[i][2])
 			goto START;
 		}	
 	}
-	for(int row = 0; row<index; row++){
+	for(int row = 0; row<=index; row++){
 		kill(managerArray[row][0],SIGKILL);
 	}
 	while(wait(NULL)!=-1);
@@ -200,3 +200,12 @@ void simulateLeague(int noOfTeams,int i, int j, int schedule[][j]){
 	printLeagueTable(noOfTeams);
 
 }
+/*
+3
+1 2
+2 3
+3 1
+2 1
+3 2
+1 3
+*/
